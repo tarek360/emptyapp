@@ -14,14 +14,14 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
 
-  var master = ""
+  var master = "com."
 
   @Test
   fun useAppContext() {
     // Context of the app under test.
     val appContext = InstrumentationRegistry.getTargetContext()
 
-    val packageName = master + branch + "com.example.empty.emptyapp"
+    val packageName = master + branch + "example.empty.emptyapp"
 
     assertEquals(packageName, appContext.packageName)
   }
