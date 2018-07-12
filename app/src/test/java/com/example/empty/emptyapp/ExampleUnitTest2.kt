@@ -8,14 +8,19 @@ import org.junit.Test
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class ExampleUnitTest2 {
   @Test
   fun test1() {
-    assertEquals(77, 2 + 2)
+    assertEquals(4, 2 + 2)
   }
 
   @Test
   fun test2() {
     assertEquals(4, 2 + 2)
+  }
+
+  @Test
+  fun test3() {
+    assertEquals(18, 2 + 2)
   }
 }
