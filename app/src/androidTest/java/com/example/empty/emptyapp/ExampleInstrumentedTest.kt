@@ -26,5 +26,5 @@ class ExampleInstrumentedTest {
     assertEquals(packageName, appContext.packageName)
   }
 
-  var branch = ""
+  var branch = "com."
 }
