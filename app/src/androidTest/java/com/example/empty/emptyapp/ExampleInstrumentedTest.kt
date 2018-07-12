@@ -21,10 +21,10 @@ class ExampleInstrumentedTest {
     // Context of the app under test.
     val appContext = InstrumentationRegistry.getTargetContext()
 
-    val packageName = master + branch + "com.example.empty.emptyapp"
+    val packageName = master + branch + "example.empty.emptyapp"
 
     assertEquals(packageName, appContext.packageName)
   }
 
-  var branch = ""
+  var branch = "com."
 }
