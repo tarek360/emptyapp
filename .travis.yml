@@ -51,3 +51,4 @@ before_script:
   - echo "Time after emulator has started  $now"
 after_success:
     - bash .automerge.sh
+    - echo End....
