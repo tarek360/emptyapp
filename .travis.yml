@@ -49,5 +49,7 @@ before_script:
   - adb shell input keyevent 82 &
   - now=$(date +"%T")
   - echo "Time after emulator has started  $now"
+script:
+  — ./gradlew build jacocoTestReport
 after_success:
-    - bash .automerge.sh
+  — bash <(curl -s https://codecov.io/bash)
