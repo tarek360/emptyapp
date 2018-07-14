@@ -11,7 +11,7 @@ import org.junit.Test
 class ExampleUnitTest1 {
   @Test
   fun test1() {
-    assertEquals(44, 2 + 2)
+    assertEquals(4, 2 + 2)
   }
 
   @Test
