@@ -21,6 +21,6 @@ class ExampleUnitTest2 {
 
   @Test
   fun test3() {
-    assertEquals(18, 2 + 2)
+    assertEquals(4, 2 + 2)
   }
 }

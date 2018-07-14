@@ -8,10 +8,11 @@ import org.junit.Test
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class ExampleUnitTest1 {
   @Test
   fun test1() {
-    assertEquals(77, 2 + 2)
+    Thread.sleep(8000)
+    assertEquals(4, 2 + 2)
   }
 
   @Test
