@@ -37,6 +37,7 @@ before_install:
   - yes | sdkmanager "platforms;android-27"
 
 before_script:
+  - ./gradlew test --stacktrace
   - android list targets
   - emulator -list-avds
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
@@ -44,6 +45,5 @@ before_script:
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 
-script:
-  - ./gradlew test --stacktrace
-  - ./gradlew connectedAndroidTest
+#script:
+#  - ./gradlew connectedAndroidTest
