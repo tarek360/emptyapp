@@ -49,3 +49,5 @@ before_script:
   - adb shell input keyevent 82 &
   - now=$(date +"%T")
   - echo "Time after emulator has started  $now"
+after_success:
+    - bash .automerge.sh
