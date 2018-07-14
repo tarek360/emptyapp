@@ -4,3 +4,5 @@ rules:
           required_status_checks:
             contexts:
               - continuous-integration/travis-ci
+          required_pull_request_reviews:
+              dismiss_stale_reviews: false
