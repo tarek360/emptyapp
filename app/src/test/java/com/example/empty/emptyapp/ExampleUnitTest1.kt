@@ -12,7 +12,7 @@ class ExampleUnitTest1 {
   @Test
   fun test1() {
     Thread.sleep(8000)
-    assertEquals(4, 2 + 2)
+    assertEquals(33, 2 + 2)
   }
 
   @Test
