@@ -45,7 +45,6 @@ before_script:
   - echo "Time before create and start emulator  $now"
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window -netfast &
-  - emulator -avd test -no-audio -no-skin -netfast -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
   - now=$(date +"%T")
