@@ -5,23 +5,28 @@
 # ********************************* For Travis CI *********************************
 # Use the next command to add the Github personal access token as encrypted global variable
 # $ travis encrypt GITHUB_SECRET_TOKEN="Github Personal access token" --add
-# You have to
+# You have to see the next lines in the job log
 # Setting environment variables from .travis.yml
 # $ export GITHUB_SECRET_TOKEN=[secure]
-
-
-BRANCH=$(git rev-parse --abbrev-ref --quiet HEAD)
-echo "Merging branch $BRANCH"
 
 # Set the request params
 GITHUB_TOKEN=$GITHUB_SECRET_TOKEN
 PULL_REQUEST_ID=$TRAVIS_PULL_REQUEST
 OWNER_NAME="tarek360"
-COMMIT_TITLE="Merge pull request #$PULL_REQUEST_ID from $OWNER_NAME/$BRANCH"
+REPO_NAME="emptyapp"
+COMMIT_TITLE=""
 COMMIT_MESSAGE=""
 
-url="https://api.github.com/repos/tarek360/emptyapp/pulls/$PULL_REQUEST_ID/merge"
+url="https://api.github.com/repos/$OWNER_NAME/$REPO_NAME/pulls/$PULL_REQUEST_ID/merge"
 
-echo $url
+echo "Merging.. pull request https://github.com/$OWNER_NAME/$REPO_NAME/pull/$PULL_REQUEST_ID"
 
-curl -H 'Host: api.github.com' -H 'Content-Type: application/json' -H "Authorization: token $GITHUB_TOKEN" --data-binary "{\"commit_title\":\"${COMMIT_TITLE}\", \"commit_message\":\"${COMMIT_MESSAGE}\"}" -X PUT --compressed $url
+
+if [ -z "$COMMIT_TITLE" ]
+then
+      # merge with default COMMIT_TITLE & COMMIT_MESSAGE if the COMMIT_MESSAGE is Empty
+      curl -H 'Host: api.github.com' -H 'Content-Type: application/json' -H "Authorization: token $GITHUB_TOKEN" -X PUT --compressed $url
+else
+      # merge with COMMIT_TITLE & COMMIT_MESSAGE if the COMMIT_MESSAGE is Not Empty
+      curl -H 'Host: api.github.com' -H 'Content-Type: application/json' -H "Authorization: token $GITHUB_TOKEN" --data-binary "{\"commit_title\":\"${COMMIT_TITLE}\", \"commit_message\":\"${COMMIT_MESSAGE}\"}" -X PUT --compressed $url
+fi
