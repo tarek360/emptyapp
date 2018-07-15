@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'jacoco-android'
+
 android {
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
@@ -43,4 +45,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.1'
+    }
 }

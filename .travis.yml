@@ -7,51 +7,57 @@ env:
 
 android:
   components:
-  - tools
-  - platform-tools
-  - tools
-  - android-21
-  - android-27
-  - build-tools-27.0.3
-  - android-27
-  - addon-google_apis-google-27
-  - extra-google-google_play_services
-  - extra-android-support
-  - extra-google-m2repository
-  - extra-android-m2repository
-  - sys-img-armeabi-v7a-android-27
-  - sys-img-armeabi-v7a-android-21
+    - tools
+    - platform-tools
+    - tools
+    - android-21
+    - android-27
+    - build-tools-27.0.3
+    - android-27
+    - addon-google_apis-google-27
+    - extra-google-google_play_services
+    - extra-android-support
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - sys-img-armeabi-v7a-android-27
+    - sys-img-armeabi-v7a-android-21
   licenses:
-  - android-sdk-preview-license-52d11cd2
-  - android-sdk-license-.+
-  - google-gdk-license-.+
+    - android-sdk-preview-license-52d11cd2
+    - android-sdk-license-.+
+    - google-gdk-license-.+
+
 before_cache:
-- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
   directories:
-  - "$HOME/.gradle/caches/"
-  - "$HOME/.gradle/wrapper/"
-  - "$HOME/.android/build-cache"
+    - "$HOME/.gradle/caches/"
+    - "$HOME/.gradle/wrapper/"
+    - "$HOME/.android/build-cache"
+
 before_install:
-- echo $GITHUB_SECRET_TOKEN
-- echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-27,sys-img-x86_64-android-27,build-tools-27.0.3
-- yes | sdkmanager "platforms;android-27"
-before_script:
-- echo "************************ Start Running Unit Tests ************************"
-- "./gradlew test --stacktrace"
-- android list targets
-- emulator -list-avds
-- now=$(date +"%T")
-- echo "Time before create and start emulator  $now"
-- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-- emulator -avd test -no-skin -no-audio -no-window -netfast -no-boot-anim &
-- android-wait-for-emulator
-- adb shell input keyevent 82 &
-- now=$(date +"%T")
-- echo "Time after emulator has started  $now"
+  - echo $GITHUB_SECRET_TOKEN
+  - echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-27,sys-img-x86_64-android-27,build-tools-27.0.3
+  - yes | sdkmanager "platforms;android-27"
+
+script:
+  - echo "************************ Start Running Unit Tests ************************"
+  - ./gradlew test --stacktrace
+  - ./gradlew build jacocoTestReport assembleAndroidTest
+  - android list targets
+  - emulator -list-avds
+  - now=$(date +"%T")
+  - echo "Time before create and start emulator  $now"
+  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window -netfast -no-boot-anim &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+  - now=$(date +"%T")
+  - echo "Time after emulator has started  $now"
+
 after_success:
-- echo $GITHUB_SECRET_TOKEN
-- echo $TRAVIS_PULL_REQUEST
-- bash .automerge.sh
-- echo End....
+  - bash <(curl -s https://codecov.io/bash)
+#  uncomment to merge PR directly after success
+#  - bash .automerge.sh
+
