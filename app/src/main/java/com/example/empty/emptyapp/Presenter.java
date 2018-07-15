@@ -4,9 +4,10 @@ import java.util.List;
 
 public class Presenter {
 
-  private String loadData(List<String> list) {
+  String data = "";
 
-    String data = "";
+  String loadData(List<String> list) {
+
     if (list != null && !list.isEmpty()) {
       data = "loaded";
     }
