@@ -2,59 +2,56 @@ language: android
 jdk: oraclejdk8
 
 env:
-  # Github deployment key
-  - secure: "ac+wrt/Ga41K4uZsVXHcwxltBSAkOXqD7pg1DPXZRVK5I2O1WnIUsM4DM2czNuAghR+dgy5md9tvPaj1u6l8NQXr5G8nQDfy77gr13D4TL4hQGEoXlzWeAN6qyPNluos2fb/K69T97vK4qxm7ys0zUwbFy5LTvuxq9KtCHIFKfvNSe6GbGb/chWvQt0aQ43P5/eRj5fFSwdX1qjDEqRWTM20PjmInt7qdDIRmoPPYJC+KV3nznetY2FTJl4KruDEw+UfYT5cB9Goow2Zl6MJgb29xJ742gKdOAi+dXx9TmyNbW0CcADlO4lenM23SvnEkh0QIb9TNHEFRJxESJpian79VdekMSHyjklSUNwDPewcZK8VbrsSs69sZNIOOAscCw5ZKf8lkntnu1zxr2WGgEwr9iFTGi0dapTEKXJZ3jKIforuCsP+qEj+IM0pt+LonYxurRLltDBT38QQTWJdLx2qLePgPfJbHsMV0ZZNs9/+9qxOZyTpAIMP5q0qSKbLbtxqTdobLfZOAiLnWsBrrnRLfdP6cvlIJ0pgjg/XqslC7pF0A8LxlFWn+aV8MVNDrqqU6/d44o3a0RkeQUJCG6ZVZRWyk6Mi5qCk8zPENC8Es9JVOzdq5iiJieVIlkE8sYWD18GGvh/ztMX42XU8MOhY8zry9lbOlEwTumAc3VE="
+  global:
+    secure: "qsTV7MrJKmqYZblBUBgrfx/3of3eQOqhANf7rSkdhdK8Y1OWir3NRIjdk1JmLrQ+WJJLVWV960JDFlJhTkQRdsUMr6esYVk1mqpSF2ABKkidkvNdCgw4jsiMx5B669zLk/RY7bSQ4WNUPtwmwqrp1vaO54HwGnDB7ITU10WNiAfMhzjItRl/FSE15UNt/fkDVZXkmwIz9bSQzhmDHgh21TNBrgYX/rs64gvrjvS1oA7ew9kz5GoLsdHI3cyDsxmRiF907DS46L52vXBvcGkbAo/mgBioTrekRe3jkYPn01Qa9OE3V+hcVoIcVsDRoGlXmaVw3/K03r0d0Izs/SlE4daCs5KFZ8nkVinepgGYTAqSugq9yT3GzGbX9hfE68nwHRoJYEZBNqg2Tzb9j/10u1jkG3e1595+5yTB6pfXkM2C+FLOfgrnVw6za6Y+5g1hjjDGrDlj7pMbkruDe6OSbL9a/aRZMu7Yn/FuVaR7bu7JA5TrgmQ+Nrh3qGKvskDkZ6gwEqEWuqtY0qzNDZ4BWvUkjxzqzcfa/7T9z5dP9se3lc6W6Rqz/eIbrz+VSuUioYXmBByzwZzZFmMXdGuqnxeblWDw72Tjyj4lPFghz4Of4Q8SxDPxfpoE3CvPizx+gKGbzVbJadSyQZI/w0Q1i1hKLXc4sGM/HxyZENuNz/8="
 
 android:
   components:
-    - tools
-    - platform-tools
-    - tools
-    - android-21
-    - android-27
-    - build-tools-27.0.3
-    - android-27
-    - addon-google_apis-google-27
-    - extra-google-google_play_services
-    - extra-android-support
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-27
-    - sys-img-armeabi-v7a-android-21
+  - tools
+  - platform-tools
+  - tools
+  - android-21
+  - android-27
+  - build-tools-27.0.3
+  - android-27
+  - addon-google_apis-google-27
+  - extra-google-google_play_services
+  - extra-android-support
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - sys-img-armeabi-v7a-android-27
+  - sys-img-armeabi-v7a-android-21
   licenses:
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-
+  - android-sdk-preview-license-52d11cd2
+  - android-sdk-license-.+
+  - google-gdk-license-.+
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cache
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
 before_install:
-  - echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-27,sys-img-x86_64-android-27,build-tools-27.0.3
-  - yes | sdkmanager "platforms;android-27"
-
+- echo $GITHUB_SECRET_TOKEN
+- echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-27,sys-img-x86_64-android-27,build-tools-27.0.3
+- yes | sdkmanager "platforms;android-27"
 before_script:
-  - echo "************************ Start Running Unit Tests ************************"
-  - ./gradlew test --stacktrace
-  - android list targets
-  - emulator -list-avds
-  - now=$(date +"%T")
-  - echo "Time before create and start emulator  $now"
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window -netfast -no-boot-anim &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-  - now=$(date +"%T")
-  - echo "Time after emulator has started  $now"
+- echo "************************ Start Running Unit Tests ************************"
+- "./gradlew test --stacktrace"
+- android list targets
+- emulator -list-avds
+- now=$(date +"%T")
+- echo "Time before create and start emulator  $now"
+- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+- emulator -avd test -no-skin -no-audio -no-window -netfast -no-boot-anim &
+- android-wait-for-emulator
+- adb shell input keyevent 82 &
+- now=$(date +"%T")
+- echo "Time after emulator has started  $now"
 after_success:
-    - echo $GITHUB_SECRET_TOKEN
-    - echo $TRAVIS_PULL_REQUEST
-    - bash .automerge.sh
-    - echo End....
+- echo $GITHUB_SECRET_TOKEN
+- echo $TRAVIS_PULL_REQUEST
+- bash .automerge.sh
+- echo End....
