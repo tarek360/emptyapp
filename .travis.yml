@@ -1,6 +1,10 @@
 language: android
 jdk: oraclejdk8
 
+env:
+  # Github deployment key
+  - secure: "ac+wrt/Ga41K4uZsVXHcwxltBSAkOXqD7pg1DPXZRVK5I2O1WnIUsM4DM2czNuAghR+dgy5md9tvPaj1u6l8NQXr5G8nQDfy77gr13D4TL4hQGEoXlzWeAN6qyPNluos2fb/K69T97vK4qxm7ys0zUwbFy5LTvuxq9KtCHIFKfvNSe6GbGb/chWvQt0aQ43P5/eRj5fFSwdX1qjDEqRWTM20PjmInt7qdDIRmoPPYJC+KV3nznetY2FTJl4KruDEw+UfYT5cB9Goow2Zl6MJgb29xJ742gKdOAi+dXx9TmyNbW0CcADlO4lenM23SvnEkh0QIb9TNHEFRJxESJpian79VdekMSHyjklSUNwDPewcZK8VbrsSs69sZNIOOAscCw5ZKf8lkntnu1zxr2WGgEwr9iFTGi0dapTEKXJZ3jKIforuCsP+qEj+IM0pt+LonYxurRLltDBT38QQTWJdLx2qLePgPfJbHsMV0ZZNs9/+9qxOZyTpAIMP5q0qSKbLbtxqTdobLfZOAiLnWsBrrnRLfdP6cvlIJ0pgjg/XqslC7pF0A8LxlFWn+aV8MVNDrqqU6/d44o3a0RkeQUJCG6ZVZRWyk6Mi5qCk8zPENC8Es9JVOzdq5iiJieVIlkE8sYWD18GGvh/ztMX42XU8MOhY8zry9lbOlEwTumAc3VE="
+
 android:
   components:
     - tools
@@ -50,5 +54,7 @@ before_script:
   - now=$(date +"%T")
   - echo "Time after emulator has started  $now"
 after_success:
+    - echo $GITHUB_SECRET_TOKEN
+    - echo $TRAVIS_PULL_REQUEST
     - bash .automerge.sh
     - echo End....
