@@ -1,57 +1,93 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'jacoco'
 
-apply plugin: 'jacoco-android'
+jacoco {
+  toolVersion = "$jacocoVersion"
+}
+
+tasks.withType(Test) {
+  testLogging {
+    events "started", "passed", "skipped", "failed"
+    exceptionFormat "full"
+  }
+  jacoco.includeNoLocationClasses = true
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+
+  reports {
+    xml.enabled = true
+    html.enabled = true
+  }
+
+  def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+  def javaClasses = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+  def kotlinClasses = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+  def javaSrc = "$project.projectDir/src/main/java"
+  def kotlinSrc = "$project.projectDir/src/main/kotlin"
+
+  sourceDirectories = files([javaSrc, kotlinSrc])
+  classDirectories = files([javaClasses, kotlinClasses])
+  executionData = fileTree(dir: project.buildDir, includes: [
+      'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+  ])
+}
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
-    defaultConfig {
-        applicationId "com.example.empty.emptyapp"
-        minSdkVersion 15
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  compileSdkVersion 27
+  buildToolsVersion "27.0.3"
+  defaultConfig {
+    applicationId "com.example.empty.emptyapp"
+    minSdkVersion 15
+    targetSdkVersion 27
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+    test.java.srcDirs += 'src/test/kotlin'
+    androidTest.java.srcDirs += 'src/androidTest/kotlin'
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+    debug {
+      testCoverageEnabled true
     }
+  }
+  testOptions {
+//    execution 'ANDROID_TEST_ORCHESTRATOR'
+    animationsDisabled true
 
-    // Test Logging
-    tasks.withType(Test) {
-      testLogging {
-        events "started", "passed", "skipped", "failed"
-        exceptionFormat "full"
-      }
+    unitTests {
+      includeAndroidResources = true
     }
-
+  }
+  // Test Logging
+  tasks.withType(Test) {
+    testLogging {
+      events "started", "passed", "skipped", "failed"
+      exceptionFormat "full"
+    }
+  }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation 'com.android.support:design:27.1.1'
-    testImplementation 'junit:junit:4.12'
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  implementation 'com.android.support:appcompat-v7:27.1.1'
+  implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+  implementation 'com.android.support:design:27.1.1'
+  testImplementation 'junit:junit:4.12'
 
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-}
+  androidTestImplementation 'com.android.support.test:rules:1.0.2'
+  androidTestImplementation 'com.android.support.test:runner:1.0.2'
+  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+//  androidTestUtil 'com.android.support.test:orchestrator:1.0.2'
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.1'
-    }
 }
