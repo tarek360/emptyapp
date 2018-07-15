@@ -1,6 +1,10 @@
 language: android
 jdk: oraclejdk8
 
+env:
+  global:
+    secure: "letD+FWMzWOJB23iFvBLTcEn9+taaHMEDyHxPU/+fvIznuyIRvCPg03hgtLRSbMQE4lAf/H4lcMNdNx9zQfEr0O7SX0+OWepD3FR1/NqTbOsxv3ZzKw6hfV2QCPzkbU+OE8BMorkeRkIYCJEAlScIVAjvHyo9cJrVah/7msjJej1HzSP8+SgSlMMx311EqvjdshMA0X3ZRpG/VS9kZjlrHTkPTkV/gxuill5/ZJRUgNko42l4oJKAJv1GXSM1UH9nFk51P7USVnqIpZ6TblxBvf6vM71SCoiKCrWkwKt2Dq3auPg/tfOcftDZXGAujzFeGe2tHRa9562mV1PgkLmRMRw1/QiNhn0llDoD7X326dh1v5Vw39NzOFuUjo4np17QdMvM08hwKTYxjSKgR20DXA9aRGDKdPrNGltk/5AQHNvfWGrnHEKGN7yb13w7JgR23gozyZ7yhaf7OaVLWF2mzNOWRYd8+RpV8z1vlcorVH68YSoKigrETo/QhnICsJAGHaItbpwS8tPQblbxy6ZHWD2DK0hPt3qAYoP30JwkeVz751jkzzN7dWCerylDhyAUUJKkwGe57owRIUcp6SmI0D26TJ7Y8z0tH/JSQricFKtALc9m6hxKgLfnnvi7pkceXc3/w1Balk2JPxNn6HRaY+M8PbiAXLHu5WvlJoyMgU="
+
 android:
   components:
     - tools
@@ -18,9 +22,9 @@ android:
     - sys-img-armeabi-v7a-android-27
     - sys-img-armeabi-v7a-android-21
   licenses:
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
+    - android-sdk-preview-license-52d11cd2
+    - android-sdk-license-.+
+    - google-gdk-license-.+
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -28,11 +32,12 @@ before_cache:
 
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cache
+    - "$HOME/.gradle/caches/"
+    - "$HOME/.gradle/wrapper/"
+    - "$HOME/.android/build-cache"
 
 before_install:
+  - echo $GITHUB_SECRET_TOKEN
   - echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-27,sys-img-x86_64-android-27,build-tools-27.0.3
   - yes | sdkmanager "platforms;android-27"
 
@@ -53,3 +58,6 @@ before_script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+#  uncomment to merge PR directly after success
+#  - bash .automerge.sh
+
