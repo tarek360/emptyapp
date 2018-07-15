@@ -56,8 +56,10 @@ script:
   - ./gradlew build jacocoTestReport
   - echo "Time after emulator has started  $now"
 
-after_success:
+after_script:
   - bash <(curl -s https://codecov.io/bash)
+
+after_success:
 #  uncomment to merge PR directly after success
 #  - bash .automerge.sh
 
