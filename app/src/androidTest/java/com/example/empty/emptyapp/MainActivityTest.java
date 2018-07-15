@@ -29,7 +29,7 @@ import static org.hamcrest.Matchers.allOf;
     floatingActionButton.perform(click());
     floatingActionButton.perform(click());
 
-    getTextView().check(matches(allOf(withText("5"), hasTextColor(android.R.color.holo_red_dark))));
+    getTextView().check(matches(allOf(withText("6"), hasTextColor(android.R.color.holo_red_dark))));
   }
 
   private ViewInteraction getFloatingButton() {
