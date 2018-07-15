@@ -25,4 +25,13 @@ public class PresenterTest {
     //Assert
     assertEquals("loaded", presenter.data);
   }
+
+  @Test public void testLoadData_withNullList() {
+
+    //Act
+    presenter.loadData(null);
+
+    //Assert
+    assertEquals("", presenter.data);
+  }
 }
