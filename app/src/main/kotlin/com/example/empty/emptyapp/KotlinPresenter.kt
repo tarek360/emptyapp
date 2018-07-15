@@ -1,8 +1,8 @@
 package com.example.empty.emptyapp
 
-class PresenterKt {
+class KotlinPresenter : Presenter {
 
-  private fun loadData(list: List<String>?): String {
+  override fun loadData(list: List<String>?): String {
 
     var data = ""
     if (list != null && !list.isEmpty()) {

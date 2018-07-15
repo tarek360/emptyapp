@@ -1,12 +1,13 @@
 package com.example.empty.emptyapp;
 
+import android.support.annotation.NonNull;
 import java.util.List;
 
-public class Presenter {
+public class JavaPresenter implements Presenter {
 
   String data = "";
 
-  String loadData(List<String> list) {
+  @NonNull @Override public String loadData(List<String> list) {
 
     if (list != null && !list.isEmpty()) {
       data = "loaded";

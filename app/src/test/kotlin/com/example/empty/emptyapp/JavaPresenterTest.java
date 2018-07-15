@@ -6,12 +6,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class PresenterTest {
+public class JavaPresenterTest {
 
-  private Presenter presenter;
+  private JavaPresenter presenter;
 
   @Before public void setUp() {
-    presenter = new Presenter();
+    presenter = new JavaPresenter();
   }
 
   @Test public void testLoadData() {
