@@ -37,15 +37,9 @@ cache:
     - "$HOME/.android/build-cache"
 
 before_install:
-  - BRANCH=$(git rev-parse --abbrev-ref --quiet HEAD)
-  - echo "before_install branch $BRANCH"
   - echo $GITHUB_SECRET_TOKEN
   - echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-27,sys-img-x86_64-android-27,build-tools-27.0.3
   - yes | sdkmanager "platforms;android-27"
-
-before_script:
-  - BRANCH=$(git rev-parse --abbrev-ref --quiet HEAD)
-  - echo "before_script branch $BRANCH"
 
 script:
   - echo "************************ Start Running Unit Tests ************************"
@@ -63,8 +57,6 @@ script:
   - echo "Time after emulator has started  $now"
 
 after_success:
-  - BRANCH=$(git rev-parse --abbrev-ref --quiet HEAD)
-  - echo "after_success branch $BRANCH"
   - bash <(curl -s https://codecov.io/bash)
 #  uncomment to merge PR directly after success
 #  - bash .automerge.sh
