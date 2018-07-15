@@ -1,7 +1,7 @@
-#rules:
-#    default:
-#        protection:
-#          required_status_checks:
-#            contexts:
-#              - continuous-integration/travis-ci
-#          required_pull_request_reviews: null
+rules:
+    default:
+        protection:
+          required_status_checks:
+            contexts:
+              - continuous-integration/travis-ci
+          required_pull_request_reviews: null
