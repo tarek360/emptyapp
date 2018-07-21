@@ -40,6 +40,8 @@ before_install:
 script:
 - echo "************************ Start Running Unit Tests ************************"
 - "./gradlew test --stacktrace"
+- "./gradlew detektCheck"
+- bash .detekt-status.sh
 - android list targets
 - emulator -list-avds
 - now=$(date +"%T")
@@ -49,8 +51,6 @@ script:
 - android-wait-for-emulator
 - adb shell input keyevent 82 &
 - now=$(date +"%T")
-- "./gradlew detektCheck"
-- bash .detekt-status.sh
 - "./gradlew build jacocoTestReport"
 - echo "Time after emulator has started  $now"
 after_script:
