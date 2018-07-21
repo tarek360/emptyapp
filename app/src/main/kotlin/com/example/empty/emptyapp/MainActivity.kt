@@ -9,8 +9,11 @@ import kotlinx.android.synthetic.main.content_main.counterTextView
 
 class MainActivity : AppCompatActivity() {
 
+  companion object {
+    private const val MAX = 5
+  }
+
   private var counter = 1
-  private val num = 7
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -19,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     fab.setOnClickListener { view ->
       counterTextView.text = (++counter).toString()
-      if (counter >= 5) {
+      if (counter >= MAX) {
         counterTextView.setTextColor(ContextCompat.getColor(this, android.R.color.holo_red_dark))
       } else {
         counterTextView.setTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark))
