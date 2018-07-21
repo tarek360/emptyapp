@@ -6,3 +6,5 @@ rules:
               - continuous-integration/travis-ci
               - codecov/project
           required_pull_request_reviews: null
+
+        disabling_label: detekt-failed
