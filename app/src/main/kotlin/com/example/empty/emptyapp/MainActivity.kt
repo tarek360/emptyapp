@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.content_main.counterTextView
 class MainActivity : AppCompatActivity() {
 
   private var counter = 1
+  private val num = 7
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

@@ -37,13 +37,11 @@ cache:
     - "$HOME/.android/build-cache"
 
 before_install:
-  - bash .report-detekt.sh
   - echo $GITHUB_SECRET_TOKEN
   - echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-27,sys-img-x86_64-android-27,build-tools-27.0.3
   - yes | sdkmanager "platforms;android-27"
 
 script:
-  - bash .report-detekt.sh
   - echo "************************ Start Running Unit Tests ************************"
   - ./gradlew test --stacktrace
   - android list targets
@@ -56,15 +54,15 @@ script:
   - adb shell input keyevent 82 &
   - now=$(date +"%T")
   - ./gradlew detektCheck
+#  Upload detekt status & report
+  - bash .detekt-status.sh
   - ./gradlew build jacocoTestReport
   - echo "Time after emulator has started  $now"
 
 after_script:
-  - bash .report-detekt.sh
   - bash <(curl -s https://codecov.io/bash)
 
 after_success:
-  - bash .report-detekt.sh
 #  uncomment to merge PR directly after success
 #  - bash .automerge.sh
 
