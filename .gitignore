@@ -16,3 +16,6 @@ signing/play-account.json
 
 # Do not commit firebase config
 google-services.json
+
+# Do not commit reports
+reports

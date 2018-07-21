@@ -18,6 +18,12 @@ buildscript {
     }
 }
 
+// Detekt
+plugins {
+    id "io.gitlab.arturbosch.detekt" version "1.0.0.RC7-3"
+}
+apply from: "detekt.gradle"
+
 allprojects {
     repositories {
         google()
