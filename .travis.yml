@@ -1,68 +1,56 @@
 language: android
 jdk: oraclejdk8
-
 env:
   global:
-    secure: "letD+FWMzWOJB23iFvBLTcEn9+taaHMEDyHxPU/+fvIznuyIRvCPg03hgtLRSbMQE4lAf/H4lcMNdNx9zQfEr0O7SX0+OWepD3FR1/NqTbOsxv3ZzKw6hfV2QCPzkbU+OE8BMorkeRkIYCJEAlScIVAjvHyo9cJrVah/7msjJej1HzSP8+SgSlMMx311EqvjdshMA0X3ZRpG/VS9kZjlrHTkPTkV/gxuill5/ZJRUgNko42l4oJKAJv1GXSM1UH9nFk51P7USVnqIpZ6TblxBvf6vM71SCoiKCrWkwKt2Dq3auPg/tfOcftDZXGAujzFeGe2tHRa9562mV1PgkLmRMRw1/QiNhn0llDoD7X326dh1v5Vw39NzOFuUjo4np17QdMvM08hwKTYxjSKgR20DXA9aRGDKdPrNGltk/5AQHNvfWGrnHEKGN7yb13w7JgR23gozyZ7yhaf7OaVLWF2mzNOWRYd8+RpV8z1vlcorVH68YSoKigrETo/QhnICsJAGHaItbpwS8tPQblbxy6ZHWD2DK0hPt3qAYoP30JwkeVz751jkzzN7dWCerylDhyAUUJKkwGe57owRIUcp6SmI0D26TJ7Y8z0tH/JSQricFKtALc9m6hxKgLfnnvi7pkceXc3/w1Balk2JPxNn6HRaY+M8PbiAXLHu5WvlJoyMgU="
-
+  - secure: b80cZCkqlmb0UoLtkB1vCNke02zTaESFcwDKcb8JhMBIumw60mRVfvQAcS3e4jUGST2pj/5TeIz6hMuwqEwc3KAsbiaD4cpJfxwTODhWzo4jhzmXGZovZqwNsRo4+nSGSvOyGQclMvaWs4nuRNc9qeuWGX5+cyeG/dKEalrhZOdNxo7kSV7HoueyDuEQTtUmi7dq0mEsCHnRCWdlOpI/x02Hb6alDlM7Fp3kJaIdAnGMYK/m3sdTiMBkhE/3/HiqSIy6/xdqI6Hw5FTRX9CmOhLObgePkgGW68fB+F7Iq12kzt+mB1KxEsGGQdWsPDZgppR+uqOB6gv3r9wlHXzh2bwziAgn2OcjUUsmruhUEwbxv3TA7/Gn3TBQ0rKfHXvNgE6Unko5wGH1OBDio54ihRU//xSRlWz6Ij6xNI7uXmjkd5t90KrWbu4C4ENZ3YRuH6CjFZDMT1AJj07Be+lV/Iq4OtURAJkO7aTAOi1+jqXmPq7aJYB56vrEOd4Gi2WxlGjyB/ck+MhL/6NNZMtcv+PheaGRsSm/2HaBd1pJ6XlKsDUqwsWMQAqlfoRD75/zdvZfM/dgF4Gj9Tkl8x1PWRRLPiKKtRLEA8DDPYguAHojtipqSODZrTlZ9Pef/cmWH7ZbSPGrU/JTW84H/cKgdfAX4tcyaxZ1DjZUT6cqSOw=
 android:
   components:
-    - tools
-    - platform-tools
-    - tools
-    - android-21
-    - android-27
-    - build-tools-27.0.3
-    - android-27
-    - addon-google_apis-google-27
-    - extra-google-google_play_services
-    - extra-android-support
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-27
-    - sys-img-armeabi-v7a-android-21
+  - tools
+  - platform-tools
+  - tools
+  - android-21
+  - android-27
+  - build-tools-27.0.3
+  - android-27
+  - addon-google_apis-google-27
+  - extra-google-google_play_services
+  - extra-android-support
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - sys-img-armeabi-v7a-android-27
+  - sys-img-armeabi-v7a-android-21
   licenses:
-    - android-sdk-preview-license-52d11cd2
-    - android-sdk-license-.+
-    - google-gdk-license-.+
-
+  - android-sdk-preview-license-52d11cd2
+  - android-sdk-license-.+
+  - google-gdk-license-.+
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - "$HOME/.gradle/caches/"
-    - "$HOME/.gradle/wrapper/"
-    - "$HOME/.android/build-cache"
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
 before_install:
-  - echo $GITHUB_SECRET_TOKEN
-  - echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-27,sys-img-x86_64-android-27,build-tools-27.0.3
-  - yes | sdkmanager "platforms;android-27"
-
+- echo $GITHUB_SECRET_TOKEN
+- echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-27,sys-img-x86_64-android-27,build-tools-27.0.3
+- yes | sdkmanager "platforms;android-27"
 script:
-  - echo "************************ Start Running Unit Tests ************************"
-  - ./gradlew test --stacktrace
-  - android list targets
-  - emulator -list-avds
-  - now=$(date +"%T")
-  - echo "Time before create and start emulator  $now"
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window -netfast -no-boot-anim &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-  - now=$(date +"%T")
-  - ./gradlew detektCheck
-#  Upload detekt status & report
-  - bash .detekt-status.sh
-  - ./gradlew build jacocoTestReport
-  - echo "Time after emulator has started  $now"
-
+- echo "************************ Start Running Unit Tests ************************"
+- "./gradlew test --stacktrace"
+- android list targets
+- emulator -list-avds
+- now=$(date +"%T")
+- echo "Time before create and start emulator  $now"
+- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+- emulator -avd test -no-skin -no-audio -no-window -netfast -no-boot-anim &
+- android-wait-for-emulator
+- adb shell input keyevent 82 &
+- now=$(date +"%T")
+- "./gradlew detektCheck"
+- bash .detekt-status.sh
+- "./gradlew build jacocoTestReport"
+- echo "Time after emulator has started  $now"
 after_script:
-  - bash <(curl -s https://codecov.io/bash)
-
-after_success:
-#  uncomment to merge PR directly after success
-#  - bash .automerge.sh
-
+- bash <(curl -s https://codecov.io/bash)
+after_success: 
