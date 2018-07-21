@@ -1,8 +1,6 @@
 language: android
 jdk: oraclejdk8
-env:
-  global:
-  - secure: b80cZCkqlmb0UoLtkB1vCNke02zTaESFcwDKcb8JhMBIumw60mRVfvQAcS3e4jUGST2pj/5TeIz6hMuwqEwc3KAsbiaD4cpJfxwTODhWzo4jhzmXGZovZqwNsRo4+nSGSvOyGQclMvaWs4nuRNc9qeuWGX5+cyeG/dKEalrhZOdNxo7kSV7HoueyDuEQTtUmi7dq0mEsCHnRCWdlOpI/x02Hb6alDlM7Fp3kJaIdAnGMYK/m3sdTiMBkhE/3/HiqSIy6/xdqI6Hw5FTRX9CmOhLObgePkgGW68fB+F7Iq12kzt+mB1KxEsGGQdWsPDZgppR+uqOB6gv3r9wlHXzh2bwziAgn2OcjUUsmruhUEwbxv3TA7/Gn3TBQ0rKfHXvNgE6Unko5wGH1OBDio54ihRU//xSRlWz6Ij6xNI7uXmjkd5t90KrWbu4C4ENZ3YRuH6CjFZDMT1AJj07Be+lV/Iq4OtURAJkO7aTAOi1+jqXmPq7aJYB56vrEOd4Gi2WxlGjyB/ck+MhL/6NNZMtcv+PheaGRsSm/2HaBd1pJ6XlKsDUqwsWMQAqlfoRD75/zdvZfM/dgF4Gj9Tkl8x1PWRRLPiKKtRLEA8DDPYguAHojtipqSODZrTlZ9Pef/cmWH7ZbSPGrU/JTW84H/cKgdfAX4tcyaxZ1DjZUT6cqSOw=
+
 android:
   components:
   - tools
