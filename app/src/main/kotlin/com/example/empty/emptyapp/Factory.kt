@@ -4,11 +4,13 @@ class Factory {
 
   fun createPresenter(type: String): Presenter {
 
-    val x = 0
+    val x = 7
 
     if (x == 2) {
 
     } else if (x == 3) {
+
+    } else {
 
     }
 

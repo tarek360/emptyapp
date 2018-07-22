@@ -21,9 +21,11 @@ class DetektReportBuilder {
       val issueTitle = line[0]
       val location = line[1].split(" - ")[0]
       val locationParts = location.split(":")
-      val fileName = locationParts[0].split("/").last()
+      val fileName = locationParts[0].split("tarek360/emptyapp/").last()
       val lineNumber = locationParts[1]
+
       //app/src/main/kotlin/com/example/empty/emptyapp/KotlinPresenter.kt:22:24]
+//	/home/travis/build/tarek360/emptyapp/buildSrc/src/main/kotlin/com/example/gradle/GithubCommitCommenter.kt:16:11
 
 //      https://github.com/tarek360/emptyapp/blob/b8e472b90b0f0beeaf42a19ab7d26dc2c9606793/Factory.kt#L11
 
