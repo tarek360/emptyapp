@@ -41,9 +41,7 @@ install:
 script:
 - echo "************************ Start Running Unit Tests ************************"
 - "./gradlew test --stacktrace"
-- bash .detekt-pending-status.sh
-- "./gradlew detektCheck"
-- bash .detekt-final-status.sh
+- bash .detekt-check-and-upload-task.sh
 - android list targets
 - emulator -list-avds
 - now=$(date +"%T")
