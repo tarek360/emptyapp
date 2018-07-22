@@ -21,19 +21,29 @@ android:
   - android-sdk-preview-license-52d11cd2
   - android-sdk-license-.+
   - google-gdk-license-.+
+
 before_cache:
+- echo "step name, before_cache"
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
   directories:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
   - "$HOME/.android/build-cache"
+
 before_install:
-- echo $GITHUB_SECRET_TOKEN
+- echo "step name, before_install"
 - echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-27,sys-img-x86_64-android-27,build-tools-27.0.3
 - yes | sdkmanager "platforms;android-27"
+
+install:
+- echo "step name, install"
+- bash .detekt-pending-status.sh
+
 script:
+- echo "step name, script"
 - echo "************************ Start Running Unit Tests ************************"
 - "./gradlew test --stacktrace"
 - "./gradlew detektCheck"
@@ -49,6 +59,10 @@ script:
 - now=$(date +"%T")
 - "./gradlew build jacocoTestReport"
 - echo "Time after emulator has started  $now"
+
 after_script:
+- echo "step name, after_script"
 - bash <(curl -s https://codecov.io/bash)
-after_success: 
+
+after_success:
+- echo "step name, after_success"
