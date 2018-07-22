@@ -9,7 +9,6 @@ class KotlinPresenter : Presenter {
     if (list != null && !list.isEmpty()) {
       data = "loaded"
     }
-
     return data
   }
 }
