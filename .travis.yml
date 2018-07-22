@@ -35,12 +35,12 @@ cache:
 
 before_install:
 - echo "step name, before_install"
+- bash .detekt-pending-status.sh
 - echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-27,sys-img-x86_64-android-27,build-tools-27.0.3
 - yes | sdkmanager "platforms;android-27"
 
 install:
 - echo "step name, install"
-- bash .detekt-pending-status.sh
 
 script:
 - echo "step name, script"
