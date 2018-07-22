@@ -12,10 +12,11 @@ open class DetektReportTask : DefaultTask() {
   fun report() {
     val report = DetektReportBuilder().build(sha)
 
-    GithubStatusChecker().createStatus(token, sha, report.isPassed)
-
+    var commentUrl = ""
     if (!report.isPassed) {
-      GithubCommitCommenter().createComment(token = token, message = report.body, sha = sha)
+      commentUrl = GithubCommitCommenter().createComment(token = token, message = report.body, sha = sha)
     }
+
+    GithubStatusChecker().createStatus(token, sha, report.isPassed, commentUrl)
   }
 }

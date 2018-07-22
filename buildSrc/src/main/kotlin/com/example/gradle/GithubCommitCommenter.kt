@@ -8,6 +8,7 @@ import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import org.gradle.api.Task
 import org.gradle.api.logging.Logging
+import org.json.JSONObject
 
 open class GithubCommitCommenter {
 
@@ -15,7 +16,7 @@ open class GithubCommitCommenter {
 
   val x = 9
 
-  fun createComment(token: String, message: String, sha: String) {
+  fun createComment(token: String, message: String, sha: String): String {
 
     val url = "$API_BASE_URL/repos/$OWNER_NAME/$REPO_NAME/commits/$sha/comments"
 
@@ -36,6 +37,10 @@ open class GithubCommitCommenter {
         .addHeader("Authorization", "token $token")
         .post(body)
         .build()
-    okhttp.newCall(request).execute()
+
+    val response = okhttp.newCall(request).execute()
+
+    val jsonResponse = JSONObject(response.body())
+    return jsonResponse.getString("html_url")
   }
 }

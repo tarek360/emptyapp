@@ -9,13 +9,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 open class GithubStatusChecker {
 
-  fun createStatus(token: String, sha: String, isPassed: Boolean) {
+  fun createStatus(token: String, sha: String, isPassed: Boolean, targetUrl:String) {
 //https://api.github.com/repos/tarek360/emptyapp/statuses/9d45e83c1ae99a4583e972bf007ac67bcb3c6a97
     val url = "$API_BASE_URL/repos/$OWNER_NAME/$REPO_NAME/statuses/$sha"
 
     val state: String
     val description: String
-    val targetUrl = ""
     val context = "Detekt"
 
     if (isPassed) {
