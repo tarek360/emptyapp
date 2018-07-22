@@ -1,4 +1,4 @@
-package com.example.gradle
+package com.example.gradle.github
 
 import net.soundvibe.jkob.json
 import okhttp3.MediaType
@@ -13,8 +13,6 @@ import org.json.JSONObject
 open class GithubCommitCommenter {
 
   private val logger = Logging.getLogger(Task::class.java)
-
-  val x = 9
 
   fun createComment(token: String, message: String, sha: String): String {
 
@@ -40,7 +38,8 @@ open class GithubCommitCommenter {
 
     val response = okhttp.newCall(request).execute()
 
-    val jsonResponse = JSONObject(response.body())
+    val jsonResponse = JSONObject(response.body()?.string())
+
     return jsonResponse.getString("html_url")
   }
 }

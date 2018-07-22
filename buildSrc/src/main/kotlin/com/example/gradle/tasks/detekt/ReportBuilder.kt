@@ -1,8 +1,10 @@
-package com.example.gradle
+package com.example.gradle.tasks.detekt
 
+import com.example.gradle.github.FILE_BASE_URL
+import com.example.gradle.tasks.detekt.model.Report
 import java.io.File
 
-class DetektReportBuilder {
+class ReportBuilder {
 
   companion object {
     const val FILE_PATH = "reports/detekt/output/detekt-plain.txt"

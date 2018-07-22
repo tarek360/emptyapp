@@ -35,7 +35,7 @@ task clean(type: Delete) {
   delete rootProject.buildDir
 }
 
-import com.example.gradle.DetektReportTask
+import com.example.gradle.tasks.detekt.DetektReportTask
 
 task reportDetekt(type: DetektReportTask) {
   if (project.hasProperty('args')) {

@@ -1,4 +1,4 @@
-package com.example.gradle
+package com.example.gradle.github
 
 const val API_BASE_URL = "https://api.github.com"
 const val OWNER_NAME = "tarek360"
