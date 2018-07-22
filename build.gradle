@@ -36,8 +36,17 @@ task clean(type: Delete) {
 }
 
 import com.example.gradle.tasks.detekt.DetektReportTask
+import com.example.gradle.tasks.detekt.DetektPendingStatusTask
 
 task reportDetekt(type: DetektReportTask) {
+  if (project.hasProperty('args')) {
+    def values = args.split(',')
+    token = values[0]
+    sha = values[1]
+  }
+}
+
+task detektPendingStatus(type: DetektPendingStatusTask) {
   if (project.hasProperty('args')) {
     def values = args.split(',')
     token = values[0]
