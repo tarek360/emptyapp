@@ -6,5 +6,4 @@ rules:
               - continuous-integration/travis-ci
               - codecov/project
               - Detekt
-              - Ahmed
           required_pull_request_reviews: null
