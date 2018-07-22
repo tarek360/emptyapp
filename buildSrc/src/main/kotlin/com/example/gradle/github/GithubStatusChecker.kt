@@ -39,7 +39,6 @@ open class GithubStatusChecker {
 
     val okhttp = OkHttpClient.Builder().addInterceptor(logger).build()
 
-
     val request = Request.Builder()
         .url(url)
         .addHeader("Authorization", "token $token")

@@ -11,13 +11,4 @@ class KotlinPresenter : Presenter {
     }
     return data
   }
-
-  var num = 9
-
-  fun myFunc(x: Any, y: Any, z: Any, a: Any, v: Any, b: Any, n: Any, m: Any, q: Any) {
-
-    when {
-
-    }
-  }
 }
